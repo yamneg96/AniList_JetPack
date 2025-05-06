@@ -54,13 +54,15 @@ fun MyApp(
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
-    var expanded = remember { mutableStateOf(false) }
+    val expanded = remember { mutableStateOf(false) }
+
+    val extraPadding = if(expanded.value) 48.dp else 0.dp
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier.padding(vertical = 5.dp, horizontal = 10.dp)
     ){
         Row(modifier = modifier.padding(24.dp)){
-            Column(modifier = modifier.fillMaxWidth().padding(vertical = 5.dp)) {
+            Column(modifier = modifier.weight(1f)) {
                 Text(
                     text = "Hello ",
                     //I could have used this but not effective compared
@@ -77,7 +79,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 )
             }
             ElevatedButton(
-                onClick = {expanded.value = !expanded.value}
+                onClick = { expanded.value = !expanded.value },
             ) {
                 Text(if (expanded.value) "Show less" else "Show more")
             }
